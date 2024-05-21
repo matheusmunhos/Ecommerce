@@ -20,6 +20,9 @@ public class Product {
     private String code;
     private BigDecimal value;
     private String description;
+    private int quantity;
+    private int porcentagem;
+    private BigDecimal originalValue;
     private Category category;
 
 
@@ -28,6 +31,7 @@ public class Product {
         this.code = dto.code();
         this.value = dto.value();
         this.description = dto.description();
+        this.quantity = dto.quantity();
     }
 
 }

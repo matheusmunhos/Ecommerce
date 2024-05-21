@@ -33,8 +33,8 @@ public class ClientController {
     }
 
     @GetMapping("/findByName/{name}/lastname/{lastname}")
-    public ResponseEntity<Client> findByName(@PathVariable String name, @PathVariable String lastname) {
-        return ResponseEntity.ok(service.findyByFirstNameAndLastName(name,lastname));
+    public ResponseEntity<List<Client>> findByName(@PathVariable String name, @PathVariable String lastname) {
+        return ResponseEntity.ok(service.findByFirstNameAndLastName(name,lastname));
     }
 
     @PutMapping("/update")

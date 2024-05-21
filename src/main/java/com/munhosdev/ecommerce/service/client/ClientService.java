@@ -36,12 +36,23 @@ public class ClientService {
         return client;
     }
 
-    public Client findyByFirstNameAndLastName(String firstName, String lastName){
-        Client client = repository.findByFirstNameAndLastName(firstName,lastName);
-        if(client == null){
-            throw new UserNotFoundException();
+    public List<Client> findByFirstNameAndLastName(String firstName, String lastName) {
+        Client client = repository.findByFirstNameAndLastName(firstName, lastName);
+        if (client == null) {
+            List<Client> similarClients = repository.findByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCase(firstName, lastName);
+            if (similarClients.isEmpty()) {
+                similarClients = repository.findByFirstNameContainingIgnoreCase(firstName);
+                if (similarClients.isEmpty()) {
+                    throw new UserNotFoundException();
+                } else {
+                    return similarClients;
+                }
+            } else {
+                return similarClients;
+            }
         }
-        return client;
+
+        return List.of(client);
     }
 
     public void deleteByCpf(String cpf){

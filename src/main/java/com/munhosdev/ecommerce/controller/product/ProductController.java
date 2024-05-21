@@ -19,7 +19,7 @@ public class ProductController {
     private ProductService service;
 
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Product> create (@RequestBody ProductDTO dto){
         Product newProduct = this.service.create(dto);
         return ResponseEntity.ok().body(newProduct);
@@ -49,8 +49,13 @@ public class ProductController {
     }
 
     @PutMapping("/update/{code}")
-    public ResponseEntity<Product> update(@RequestBody ProductDTO dto, String code){
+    public ResponseEntity<Product> update(@RequestBody ProductDTO dto, @PathVariable String code){
         return ResponseEntity.ok().body(this.service.update(dto,code));
+    }
+
+    @DeleteMapping("/deleteAll")
+    public void deleteAll(){
+        service.deleteall();
     }
 
 }

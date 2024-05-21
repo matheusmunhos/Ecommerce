@@ -7,6 +7,7 @@ public record ProductDTO(
         String name,
         String description,
         BigDecimal value,
-        String code
+        String code,
+        String categoryCode
 ) {
 }

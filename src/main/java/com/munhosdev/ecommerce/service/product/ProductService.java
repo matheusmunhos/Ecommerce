@@ -1,9 +1,12 @@
 package com.munhosdev.ecommerce.service.product;
 
+import com.munhosdev.ecommerce.domain.category.Category;
+import com.munhosdev.ecommerce.exceptions.CategoryNotFoundException;
 import com.munhosdev.ecommerce.domain.product.Product;
 import com.munhosdev.ecommerce.domain.product.ProductDTO;
 import com.munhosdev.ecommerce.exceptions.ProductNotFoundException;
 import com.munhosdev.ecommerce.repository.ProductRepository;
+import com.munhosdev.ecommerce.service.category.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +18,17 @@ public class ProductService {
     @Autowired
     private ProductRepository repository;
 
+    @Autowired
+    private CategoryService categoryService;
+
     public Product create(ProductDTO product){
 
+        Category category = this.categoryService.findByCode(product.categoryCode());
+        if(category == null){
+            throw new CategoryNotFoundException();
+        }
         Product newProduct = new Product(product);
+        newProduct.setCategory(category);
         this.repository.save(newProduct);
         return newProduct;
     }

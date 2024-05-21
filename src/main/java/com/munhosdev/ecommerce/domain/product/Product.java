@@ -1,5 +1,6 @@
 package com.munhosdev.ecommerce.domain.product;
 
+import com.munhosdev.ecommerce.domain.category.Category;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -19,6 +20,7 @@ public class Product {
     private String code;
     private BigDecimal value;
     private String description;
+    private Category category;
 
 
     public Product (ProductDTO dto){

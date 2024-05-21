@@ -94,7 +94,7 @@ public class ProductService {
         repository.deleteAll();
     }
 
-    private BigDecimal calcularValorComPorcentagem(BigDecimal valorOriginal, int porcentagem) {
+    public BigDecimal calcularValorComPorcentagem(BigDecimal valorOriginal, int porcentagem) {
         BigDecimal percentual = BigDecimal.valueOf(porcentagem).divide(BigDecimal.valueOf(100));
         BigDecimal valorAdicional = valorOriginal.multiply(percentual).setScale(2, RoundingMode.HALF_UP);
         return valorOriginal.add(valorAdicional);

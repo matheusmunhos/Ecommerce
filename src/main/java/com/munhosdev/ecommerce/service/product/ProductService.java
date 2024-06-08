@@ -75,13 +75,12 @@ public class ProductService {
         if(!dto.name().isEmpty()) updatedProduct.setName(dto.name());
         if(!dto.description().isEmpty()) updatedProduct.setDescription(dto.description());
         if(!dto.value().toString().isEmpty()) updatedProduct.setValue(dto.value());
-        if(!dto.code().isEmpty()) updatedProduct.setCode(dto.code());
 
         updatedProduct.setPorcentagem(dto.porcentagem());
         updatedProduct.setOriginalValue(dto.value());
 
-        if (dto.categoryCode() != null){
-            updatedProduct.setCategory(this.categoryService.findByCode(updatedProduct.getCategory().getCode()));
+        if (!dto.categoryCode().isEmpty()){
+            updatedProduct.setCategory(this.categoryService.findByCode(dto.categoryCode()));
         }
 
         BigDecimal valorFinal = calcularValorComPorcentagem(dto.value(),dto.porcentagem());
@@ -111,5 +110,11 @@ public class ProductService {
         return this.repository.save(newProduct);
     }
 
+    public BigDecimal calcularValorComDesconto(BigDecimal valorOriginal, int porcentagemDesconto) {
+
+        BigDecimal percentual = BigDecimal.valueOf(porcentagemDesconto).divide(BigDecimal.valueOf(100));
+        BigDecimal valorDesconto = valorOriginal.multiply(percentual).setScale(2, RoundingMode.HALF_UP);
+        return valorOriginal.subtract(valorDesconto);
+    }
 
 }

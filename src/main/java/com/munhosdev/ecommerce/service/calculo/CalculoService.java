@@ -2,6 +2,7 @@ package com.munhosdev.ecommerce.service.calculo;
 
 import com.munhosdev.ecommerce.domain.calculo.Calculo;
 import com.munhosdev.ecommerce.domain.calculo.CalculoDTO;
+import com.munhosdev.ecommerce.domain.calculo.CalculoDesconto;
 import com.munhosdev.ecommerce.service.product.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,4 +25,13 @@ public class CalculoService {
         CalculoDTO calculoDTO = new CalculoDTO(valorFinal, valorInicial, lucro);
         return calculoDTO;
     }
+
+    public CalculoDesconto calculoDesconto(Calculo calculo) {
+        BigDecimal valorFinal = productService.calcularValorComDesconto(calculo.getValor(), calculo.getPorcentagem());
+        BigDecimal valorInicial = calculo.getValor();
+        BigDecimal perda = valorInicial.subtract(valorFinal);
+        CalculoDesconto calculoDesconto = new CalculoDesconto(valorInicial, valorFinal, perda);
+        return calculoDesconto;
+    }
+
 }

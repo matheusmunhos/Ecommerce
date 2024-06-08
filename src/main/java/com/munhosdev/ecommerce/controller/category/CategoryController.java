@@ -34,5 +34,11 @@ public class CategoryController {
         return ResponseEntity.ok(service.findByCode(code));
     }
 
+    @DeleteMapping("/delete/{code}")
+    public ResponseEntity<Void> delete (@PathVariable("code") String code){
+        service.deleteCategory(code);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }

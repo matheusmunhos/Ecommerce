@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -25,6 +29,7 @@ public class ProductController {
         return ResponseEntity.ok().body(newProduct);
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping
     public ResponseEntity<List<Product>> getAll(){
         List<Product> products = this.service.getAll();
@@ -57,5 +62,12 @@ public class ProductController {
     public void deleteAll(){
         service.deleteall();
     }
+
+    @PutMapping("/repor/{codigo}/{quantity}")
+    public ResponseEntity<Product> repor(@PathVariable String codigo, @PathVariable int quantity){
+        return ResponseEntity.ok().body(this.service.repor(codigo,quantity));
+    }
+
+
 
 }

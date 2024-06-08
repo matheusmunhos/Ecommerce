@@ -41,6 +41,14 @@ public class CategoryService {
         return category;
     }
 
+    public void deleteCategory(String code) {
+        Category category = this.categoryRepository.findByCode(code);
+        if (category == null){
+            throw new CategoryNotFoundException();
+        }
+        this.categoryRepository.delete(category);
+    }
+
 
 
 

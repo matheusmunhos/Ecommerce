@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -23,7 +24,9 @@ public class Product {
     private int quantity;
     private int porcentagem;
     private BigDecimal originalValue;
+    private LocalDateTime data;
     private Category category;
+
 
 
     public Product (ProductDTO dto){
@@ -32,6 +35,7 @@ public class Product {
         this.value = dto.value();
         this.description = dto.description();
         this.quantity = dto.quantity();
+        this.data = LocalDateTime.now();
     }
 
 }
